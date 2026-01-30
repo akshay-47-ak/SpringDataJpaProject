@@ -1,5 +1,6 @@
 package com.example.FirstJapCurd.service;
 
+import com.example.FirstJapCurd.exceptions.ResourceNotFoundException;
 import com.example.FirstJapCurd.model.Player;
 import com.example.FirstJapCurd.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,9 @@ public Player createPlayer(Player player){
 }
 
 public Player getPlayerById(long id){
-    return playerRepository.getById(id);
+    return playerRepository.findById(id)
+            .orElseThrow(()->
+                    new ResourceNotFoundException("Player Not Found With Player Id :"+id));
 }
 
 
