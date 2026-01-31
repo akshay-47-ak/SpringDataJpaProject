@@ -5,6 +5,8 @@ import com.example.FirstJapCurd.model.Player;
 import com.example.FirstJapCurd.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PlayerService {
 
@@ -31,6 +33,14 @@ public Player updatePlayer(Player player){
    existingPlayer.setName(player.getName());
    existingPlayer.setLevel(player.getLevel());
    return playerRepository.save(existingPlayer);
+}
+
+public List<Player>getAllPlayers(){
+    List<Player> playerList = playerRepository.findAll();
+    if( playerList.isEmpty())
+        throw  new ResourceNotFoundException("No Data Found!");
+
+    return playerList;
 }
 
 
