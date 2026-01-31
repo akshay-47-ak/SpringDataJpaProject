@@ -24,5 +24,14 @@ public Player getPlayerById(long id){
                     new ResourceNotFoundException("Player Not Found With Player Id :"+id));
 }
 
+public Player updatePlayer(Player player){
+   Player existingPlayer = playerRepository.findById(player.getId()).orElseThrow(
+           ()-> new ResourceNotFoundException("Player Not Found with Id :" + player.getId())
+           );
+   existingPlayer.setName(player.getName());
+   existingPlayer.setLevel(player.getLevel());
+   return playerRepository.save(existingPlayer);
+}
+
 
 }
